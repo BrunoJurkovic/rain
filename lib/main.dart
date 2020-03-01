@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rain/bloc/weather_bloc.dart';
+import 'package:rain/data/repositories/weather_repo.dart';
+import 'package:rain/presentation/home/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,23 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: HomePage(),
+      home: BlocProvider(
+        create: (context) => WeatherBloc(NetworkWeatherRepository()),
+        child: HomePage(),
+      ),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(),
-    );
-  }
-}
